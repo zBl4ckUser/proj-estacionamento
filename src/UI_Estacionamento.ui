@@ -1,0 +1,1063 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>864</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Estaciona+</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>images/Icon_Carro.png</normaloff>images/Icon_Carro.png</iconset>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>16</width>
+    <height>16</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>651</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="tabNovo_Registro">
+     <attribute name="title">
+      <string>Novo registro</string>
+     </attribute>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>40</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CPF</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edCPF">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>40</y>
+        <width>181</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>999.999.999-99</string>
+      </property>
+      <property name="text">
+       <string>..-</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>70</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Placa</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edPlaca">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>70</y>
+        <width>181</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>&gt;NNN-NNNN</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>130</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Horário de Entrada</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>160</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Horário de Saída</string>
+      </property>
+     </widget>
+     <widget class="QDateTimeEdit" name="dtEntrada">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>130</y>
+        <width>181</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="date">
+       <date>
+        <year>2000</year>
+        <month>1</month>
+        <day>1</day>
+       </date>
+      </property>
+      <property name="displayFormat">
+       <string>HH:mm dd/MM/yyyy </string>
+      </property>
+     </widget>
+     <widget class="QDateTimeEdit" name="dtSaida">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>160</y>
+        <width>181</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="displayFormat">
+       <string>HH:mm dd/MM/yyyy </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCriar_Reg">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>350</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Criar registro</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCancelar">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>350</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cancelar</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>100</y>
+        <width>121</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tipo de Veículo</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="cbxTipo">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>100</y>
+        <width>181</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Carro</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Moto</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabList_Reg">
+     <attribute name="title">
+      <string>Listar registros </string>
+     </attribute>
+     <widget class="QTableWidget" name="twReg">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>601</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Cliente</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nome</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Placa</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Horario De Início</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Horario De Saída</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Valor</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabList_Func">
+     <attribute name="title">
+      <string>Listar funcionários</string>
+     </attribute>
+     <widget class="QTableWidget" name="twFunc">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>601</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Identificação</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nome</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>CPF</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>RG</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Telefone</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Endereço</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Salário</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabCad_Cliente">
+     <attribute name="title">
+      <string>Cadastrar cliente</string>
+     </attribute>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>49</y>
+        <width>49</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Nome</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>99</y>
+        <width>49</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CPF</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>149</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Telefone</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edNome_Cliente">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>49</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edCPF_Cli">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>99</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>999.999.999-99</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edTel_Cliente">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>149</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>(9D)9999-99999</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCad_Cli">
+      <property name="geometry">
+       <rect>
+        <x>299</x>
+        <y>320</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cadastrar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCancelar_Cli">
+      <property name="geometry">
+       <rect>
+        <x>389</x>
+        <y>320</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cancelar</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tabCad_Func">
+     <attribute name="title">
+      <string>Cadastrar funcionários</string>
+     </attribute>
+     <widget class="QLineEdit" name="edNome_Func">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>49</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edCPF_Func">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>99</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>999.999.999-99</string>
+      </property>
+      <property name="text">
+       <string>..-</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edRG_Func">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>150</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>99.999.999-9</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edTel_Func">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>200</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string>(9D)9999-99999</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edSalario">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>340</y>
+        <width>171</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>49</y>
+        <width>51</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Nome</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>99</y>
+        <width>27</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CPF</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>150</y>
+        <width>21</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>RG</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>200</y>
+        <width>71</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Telefone</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>42</x>
+        <y>340</y>
+        <width>51</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="whatsThis">
+       <string>Salário do funcionário, em reais</string>
+      </property>
+      <property name="text">
+       <string>Salário</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCad_Func">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>399</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cadastrar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCan_Func">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>399</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cancelar</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>250</y>
+        <width>81</width>
+        <height>18</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Endereço</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="etEndereco">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>250</y>
+        <width>171</width>
+        <height>61</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Administração</string>
+     </attribute>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>40</y>
+        <width>118</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Valor para carros</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>80</y>
+        <width>119</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Valor para motos</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>120</y>
+        <width>65</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Desconto</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spbCarro">
+      <property name="geometry">
+       <rect>
+        <x>257</x>
+        <y>41</y>
+        <width>61</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>9999999</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spbMoto">
+      <property name="geometry">
+       <rect>
+        <x>257</x>
+        <y>80</y>
+        <width>61</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>9999999</number>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="dspbDesconto">
+      <property name="geometry">
+       <rect>
+        <x>257</x>
+        <y>120</y>
+        <width>61</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="whatsThis">
+       <string>Desconto para clientes cadastrados ( em %)</string>
+      </property>
+      <property name="maximum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.010000000000000</double>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnAlterar">
+      <property name="geometry">
+       <rect>
+        <x>246</x>
+        <y>160</y>
+        <width>75</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Alterar</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edReg_ID">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>240</y>
+        <width>151</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>ID do registro</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>26</x>
+        <y>240</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Deletar registro</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnDeletar">
+      <property name="geometry">
+       <rect>
+        <x>254</x>
+        <y>270</y>
+        <width>91</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Deletar Registro</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnRem_Func">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>350</y>
+        <width>109</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Deletar funcionário</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="edFunc_ID">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>320</y>
+        <width>151</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ID do funcionário&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>ID do registro</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>320</y>
+        <width>149</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Remover Funcionário</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>64</width>
+     <height>64</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCadastrar_Cliente"/>
+   <addaction name="actionCadastrar_Funcionario"/>
+   <addaction name="actionListar"/>
+   <addaction name="actionNovo_Registro"/>
+   <addaction name="actionAdmin"/>
+  </widget>
+  <action name="actionCadastrar_Cliente">
+   <property name="icon">
+    <iconset resource="content.qrc">
+     <normaloff>:/Img/images/Img_Cadastro.png</normaloff>:/Img/images/Img_Cadastro.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cadastrar Cliente</string>
+   </property>
+   <property name="toolTip">
+    <string>Cadastrar Usuário</string>
+   </property>
+   <property name="shortcut">
+    <string>|</string>
+   </property>
+  </action>
+  <action name="actionCadastrar_Funcionario">
+   <property name="icon">
+    <iconset resource="content.qrc">
+     <normaloff>:/Img/images/Img_CadastroFunc.png</normaloff>:/Img/images/Img_CadastroFunc.png</iconset>
+   </property>
+   <property name="text">
+    <string>Novo Funcionário</string>
+   </property>
+   <property name="toolTip">
+    <string>Cadastrar Funcionário</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+P</string>
+   </property>
+  </action>
+  <action name="actionListar">
+   <property name="icon">
+    <iconset resource="content.qrc">
+     <normaloff>:/Img/images/Img_Lupa.png</normaloff>:/Img/images/Img_Lupa.png</iconset>
+   </property>
+   <property name="text">
+    <string>Listar</string>
+   </property>
+   <property name="toolTip">
+    <string>Lista os registros em aberto</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionNovo_Registro">
+   <property name="icon">
+    <iconset resource="content.qrc">
+     <normaloff>:/Img/images/Img_NovoRegistro.png</normaloff>:/Img/images/Img_NovoRegistro.png</iconset>
+   </property>
+   <property name="text">
+    <string>Novo Registro</string>
+   </property>
+   <property name="toolTip">
+    <string>Cria um novo registro de estacionamento</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAdmin">
+   <property name="icon">
+    <iconset resource="content.qrc">
+     <normaloff>:/Img/images/Img_Config.png</normaloff>:/Img/images/Img_Config.png</iconset>
+   </property>
+   <property name="text">
+    <string>Admin</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="content.qrc"/>
+ </resources>
+ <connections/>
+</ui>

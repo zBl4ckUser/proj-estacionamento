@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="Img">
+    <file>Img_Cadastro.png</file>
+    <file>Img_CadastroFunc.png</file>
+    <file>Img_Lupa.png</file>
+    <file>Img_NovoRegistro.png</file>
+    <file>Img_Proximo.png</file>
+  </qresource>
+</RCC>
