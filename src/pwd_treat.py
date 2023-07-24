@@ -3,6 +3,7 @@ from cryptography.fernet import Fernet
 def get_key():
     file = open("key.txt", "r") 
     key = file.readline()
+    file.close()
     return key
 
 def crypt_password(password):
