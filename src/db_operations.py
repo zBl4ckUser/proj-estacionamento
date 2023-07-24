@@ -22,14 +22,21 @@ columns = ["cpf, placa, tipo_auto", "idCliente, entrada, saida", "nome, cpf, rg,
            ]
 
 
+def find_drivers():
+    installed_drivers = db.drivers()
+
+    # Verifica se há drivers instalados
+    if installed_drivers:
+        return installed_drivers[0]
+    else:
+        raise Exception("Nenhum driver ODBC encontrado no sistema.")
 
 def check_os():
-    import platform 
+    import platform
     if platform.system() == "Linux":
-         return "ODBC Driver 18 for SQL Server"
+        return find_drivers()
     elif platform.system() == "Windows":
-         return "SQL Server"
-
+        return find_drivers()
 
 def connect_to_db(pwd, user, server, database) -> bool:
         try: 
