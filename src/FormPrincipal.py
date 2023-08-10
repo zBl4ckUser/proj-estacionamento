@@ -7,7 +7,8 @@ from PySide6.QtCore import QDateTime
 #UTILS
 import datetime
 import re
-from db_operations import insert_into_db, get_client_id, db_form, verify_premium, table, columns
+from db_operations import insert_into_db, get_client_id, db_form, verify_premium, \
+    table, columns, verify_if_registry_exist, verify_if_employee_exist
 
 class Colors:
     HEADER = '\033[95m'
@@ -62,6 +63,13 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         self.tabWidget.currentChanged.connect(self.on_tab_change)
 
+    def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(message)
+        msg.setStandardButtons(QMessageBox.Ok)
+        msg.exec()
+
     # T de Tool
     def t_cadastrar_cliente(self):
         self.tabWidget.show()
@@ -95,45 +103,55 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
     def delete_reg(self):
         from db_operations import connection
-        reg_id = int(self.edReg_ID.text())
         cursor = connection.cursor()
-        sDel = f"DELETE FROM Estacionamento.Registro WHERE idRegistro = {reg_id}"
-        try:
-            cursor.execute(sDel)
-            print(f"{Colors.OKGREEN} Registro {reg_id} deletado")
-        except Exception as err:
-            print(f"{Colors.FAIL}Erro ao deletar registro!{Colors.ENDC}")
-            print(f"Erro: {err}")
-
-        cursor.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
-        cursor.close()
+        
+        if self.edReg_ID.text() == '':
+            print(f"{Colors.FAIL}Nenhum registro foi informado{Colors.ENDC}")
+            self.warning_msg("Informação faltante","Nenhum registro foi informado")
+        else:
+            reg_id = int(self.edReg_ID.text())
+            sDel = f"DELETE FROM Estacionamento.Registro WHERE idRegistro = {reg_id}"
+            if verify_if_registry_exist(reg_id):
+                try:
+                    cursor.execute(sDel)
+                    print(f"{Colors.OKGREEN} Registro {reg_id} deletado")
+                    cursor.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
+                except Exception as err:
+                    print(f"{Colors.FAIL}Erro ao deletar registro!{Colors.ENDC}")
+                    print(f"Erro: {err}")
+            else:
+                print(f"{Colors.FAIL}O Registro não existe{Colors.ENDC}")
+                self.warning_msg("Erro!", "O Registro não existe")
+            cursor.close()
 
     def remove_func(self):
         from db_operations import connection
-        try:
-            func_id = int(self.edFunc_ID.text())
-            sDel = f"DELETE FROM Estacionamento.Funcionario WHERE idFuncionario = {func_id}"
-        except:
-            func_id = self.edFunc_ID.text()
-            sDel = f"DELETE FROM Estacionamento.Funcionario WHERE nome = '{func_id}'"
-        cursor = connection.cursor()
-        
-        try:
-            cursor.execute(sDel)
-            print(f"{Colors.OKGREEN}Registro {func_id} deletado")
-        except Exception as err:
-            print(f"{Colors.FAIL}Erro ao deletar registro!{Colors.ENDC}")
-            print(f"Erro: {err}")
 
-        cursor.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
-        cursor.close()
+        if self.edFunc_ID.text() == '':
+            print(f"{Colors.FAIL}Nenhum registro foi informado{Colors.ENDC}")
+            self.warning_msg("Informação faltante","Nenhum registro foi informado")
+        else:
+            try:
+                func_id = int(self.edFunc_ID.text())
+                sDel = f"DELETE FROM Estacionamento.Funcionario WHERE idFuncionario = {func_id}"
+            except:
+                func_id = self.edFunc_ID.text()
+                sDel = f"DELETE FROM Estacionamento.Funcionario WHERE nome = '{func_id}'"
+            cursor = connection.cursor()
 
-    def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
-        msg = QMessageBox()
-        msg.setWindowTitle(title)
-        msg.setText(message)
-        msg.setStandardButtons(QMessageBox.Ok)
-        msg.exec()
+            if verify_if_employee_exist(func_id):
+                try:
+                    cursor.execute(sDel)
+                    print(f"{Colors.OKGREEN}Registro {func_id} deletado")
+                except Exception as err:
+                    print(f"{Colors.FAIL}Erro ao deletar registro!{Colors.ENDC}")
+                    print(f"Erro: {err}")
+            else:
+                print(f"{Colors.FAIL}O Registro não existe{Colors.ENDC}")
+                self.warning_msg("Erro!", "O Registro não existe")
+
+            cursor.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
+            cursor.close()
 
     def clear_inputs(self):
         self.edReg_ID.clear()
@@ -153,8 +171,6 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edNome_Cliente.clear()
         self.edCPF_Cli.clear()
         self.edTel_Cliente.clear()
-        
-            
         
     def new_reg(self):
         regex_placa = r'^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$' # regex de validação para placa
