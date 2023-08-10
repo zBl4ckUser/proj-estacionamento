@@ -13,6 +13,7 @@ create table Estacionamento.Registro(
 	idCliente int not null,
 	entrada datetime not null,
 	saida datetime null,
+	preco float null,
 	constraint fk_idCliente foreign key(idCliente)
 	references Estacionamento.Cliente(idCliente)
 )
