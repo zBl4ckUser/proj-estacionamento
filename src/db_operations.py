@@ -123,3 +123,25 @@ def verify_premium():
         INNER JOIN Estacionamento.CadastroCliente ON Estacionamento.Cliente.cpf = Estacionamento.CadastroCliente.cpf"
     cursor.execute(sVerify)
     cursor.close()
+
+def verify_if_registry_exist(reg: int) -> bool:
+    cursor = connection.cursor()
+    sVerify = f"SELECT * FROM Estacionamento.Registro r where r.idRegistro = {reg}"
+    result = cursor.execute(sVerify)
+    if result.fetchone() is None:
+        cursor.close()
+        return False
+    else:
+        cursor.close()
+        return True
+
+def verify_if_employee_exist(reg: any) -> bool:
+    cursor = connection.cursor()
+    sVerify = f"SELECT * FROM Estacionamento.Funcionario f WHERE f.idFuncionario = {reg}"
+    result = cursor.execute(sVerify)
+    if result.fetchone() is None:
+        cursor.close()
+        return False
+    else:
+        cursor.close()
+        return True
