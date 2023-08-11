@@ -42,6 +42,9 @@
     <property name="tabsClosable">
      <bool>false</bool>
     </property>
+    <property name="movable">
+     <bool>true</bool>
+    </property>
     <widget class="QWidget" name="tabNovo_Registro">
      <attribute name="title">
       <string>Novo registro</string>
@@ -982,7 +985,7 @@
   </widget>
   <action name="actionCadastrar_Cliente">
    <property name="icon">
-    <iconset resource="content.qrc">
+    <iconset>
      <normaloff>:/Img/images/Img_Cadastro.png</normaloff>:/Img/images/Img_Cadastro.png</iconset>
    </property>
    <property name="text">
@@ -997,7 +1000,7 @@
   </action>
   <action name="actionCadastrar_Funcionario">
    <property name="icon">
-    <iconset resource="content.qrc">
+    <iconset>
      <normaloff>:/Img/images/Img_CadastroFunc.png</normaloff>:/Img/images/Img_CadastroFunc.png</iconset>
    </property>
    <property name="text">
@@ -1012,7 +1015,7 @@
   </action>
   <action name="actionListar">
    <property name="icon">
-    <iconset resource="content.qrc">
+    <iconset>
      <normaloff>:/Img/images/Img_Lupa.png</normaloff>:/Img/images/Img_Lupa.png</iconset>
    </property>
    <property name="text">
@@ -1027,7 +1030,7 @@
   </action>
   <action name="actionNovo_Registro">
    <property name="icon">
-    <iconset resource="content.qrc">
+    <iconset>
      <normaloff>:/Img/images/Img_NovoRegistro.png</normaloff>:/Img/images/Img_NovoRegistro.png</iconset>
    </property>
    <property name="text">
@@ -1045,7 +1048,7 @@
   </action>
   <action name="actionAdmin">
    <property name="icon">
-    <iconset resource="content.qrc">
+    <iconset>
      <normaloff>:/Img/images/Img_Config.png</normaloff>:/Img/images/Img_Config.png</iconset>
    </property>
    <property name="text">

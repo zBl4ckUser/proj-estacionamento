@@ -190,12 +190,14 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             client_insert = f"'{client_cpf}', '{placa}', '{type_auto}'"
             
             insert_into_db(table[0], columns[0], client_insert) # Novo Cliente
+            print(f"{Colors.OKCYAN}Cliente cadastrado com sucesso{Colors.ENDC}")
             verify_premium() # verifica se o cliente já é cadastrado 
 
             client_id = get_client_id()  
             registry_insert = f"{client_id}, CONVERT(DATETIME, '{entry_date}'), CONVERT(DATETIME, '{departure_time}')"
             
             insert_into_db(table[1], columns[1], registry_insert) # Novo registro
+            print(f"{Colors.OKCYAN}Registro inserido com sucesso{Colors.ENDC}")
 
             self.clear_inputs()
 

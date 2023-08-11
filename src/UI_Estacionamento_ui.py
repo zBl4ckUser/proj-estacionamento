@@ -66,6 +66,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setGeometry(QRect(10, 20, 651, 551))
         self.tabWidget.setStyleSheet(u"")
         self.tabWidget.setTabsClosable(False)
+        self.tabWidget.setMovable(True)
         self.tabNovo_Registro = QWidget()
         self.tabNovo_Registro.setObjectName(u"tabNovo_Registro")
         self.label = QLabel(self.tabNovo_Registro)

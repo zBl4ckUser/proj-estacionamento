@@ -65,7 +65,6 @@ def insert_into_db(table, columns, values):
                     f" values ({values})"
         try:
             cursor.execute(sComando)
-            print(f"{Colors.OKCYAN}Registro inserido com sucesso{Colors.ENDC}")
         except db.Error as err:
             print(f"{Colors.FAIL}[BD] Inserção no banco de dados falhou!{Colors.ENDC}")
             print(f"Error is: {err.args[1]}")
