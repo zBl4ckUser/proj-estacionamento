@@ -124,7 +124,13 @@
        </font>
       </property>
       <property name="inputMask">
-       <string>&gt;NNN-NNNN</string>
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>9</number>
+      </property>
+      <property name="placeholderText">
+       <string>ABC-1234</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_3">

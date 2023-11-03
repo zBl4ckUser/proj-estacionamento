@@ -55,6 +55,8 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edCPF_Cli.textChanged.connect(lambda: self.format_cpf(self.edCPF_Cli))
         self.edCPF_Func.textChanged.connect(lambda: self.format_cpf(self.edCPF_Func))
 
+        self.edPlaca.textChanged.connect(lambda: self.format_plate(self.edPlaca))
+
 
         current_dt = QDateTime.currentDateTime()
         self.dtEntrada.setMinimumDateTime(current_dt)
@@ -87,6 +89,23 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             formatted_cpf += char
 
         editline.setText(formatted_cpf)
+
+    def format_plate(self, editline):
+        text = editline.text()
+        cursor_position = editline.cursorPosition()
+
+        # Remove caracteres não numéricos
+        cleaned_text = ''.join(filter(str.isalnum, text))
+
+        # Formata o CPF com pontos e hífen
+        formatted_plate = ''
+        for i, char in enumerate(cleaned_text):
+            if i in (3, 7):
+                formatted_plate += '-'
+            formatted_plate += char
+
+        formatted_plate = formatted_plate.upper()
+        editline.setText(formatted_plate)
 
     def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
         msg = QMessageBox()
@@ -200,7 +219,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
     def new_reg(self):
         regex_placa = r'^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$' # regex de validação para placa
 
-        if self.edCPF.text() == "   .   .   -  " or self.edPlaca.text() == "-" :
+        if self.edCPF.text() == "" or self.edPlaca.text() == "" :
             self.warning_msg()
         if  not re.match(regex_placa, self.edPlaca.text().replace("-", "")): # FAZ A VALIDAÇÃO REGEX
             self.warning_msg("Placa Inválida", "A Placa inserida é inválida")
@@ -228,7 +247,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
     def new_func(self):
 
-        if self.edCPF_Func.text() == "   .   .   -  " or self.edNome_Func.text() == "" or\
+        if self.edCPF_Func.text() == "" or self.edNome_Func.text() == "" or\
            self.edRG_Func.text() == "  .   .   - " or self.edSalario.text() == ""\
            or self.edTel_Func.text()== "(  )    -     " or self.etEndereco.toPlainText() == "":
             self.warning_msg()
