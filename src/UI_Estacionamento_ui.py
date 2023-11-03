@@ -432,6 +432,7 @@ class Ui_MainWindow(object):
         self.edTel_Func.setPlaceholderText(QCoreApplication.translate("MainWindow", u"(99) 99999-9999", None))
         self.edSalario.setInputMask("")
         self.edSalario.setText("")
+        self.edSalario.setPlaceholderText(QCoreApplication.translate("MainWindow", u"R$ 1000", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"CPF", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"RG", None))

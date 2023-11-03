@@ -631,6 +631,9 @@
       <property name="maxLength">
        <number>15</number>
       </property>
+      <property name="placeholderText">
+       <string>R$ 1000</string>
+      </property>
      </widget>
      <widget class="QLabel" name="label_10">
       <property name="geometry">

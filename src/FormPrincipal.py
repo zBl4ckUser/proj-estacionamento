@@ -2,8 +2,8 @@
 from UI_Estacionamento_ui import Ui_MainWindow
 #QT UTIL
 from PySide6.QtWidgets import QMainWindow, QMessageBox, QTableWidgetItem
-from PySide6.QtGui import QIntValidator
-from PySide6.QtCore import QDateTime
+from PySide6.QtGui import QIntValidator, QRegularExpressionValidator
+from PySide6.QtCore import QDateTime, QRegularExpression
 #UTILS
 import datetime
 import re
@@ -50,6 +50,10 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         int_validator = QIntValidator()
         self.edReg_ID.setValidator(int_validator)
         self.edFunc_ID.setValidator(int_validator)
+
+        validator = QRegularExpressionValidator(QRegularExpression("[A-Za-z_ ]+"), self)
+        self.edNome_Cliente.setValidator(validator)
+        self.edNome_Func.setValidator(validator)
 
         # formatando os editlines     
         self.edCPF.textChanged.connect(lambda: self.format_cpf(self.edCPF))
