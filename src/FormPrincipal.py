@@ -50,13 +50,16 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edReg_ID.setValidator(int_validator)
         self.edFunc_ID.setValidator(int_validator)
 
-        # formata o CPF     
+        # formatando os editlines     
         self.edCPF.textChanged.connect(lambda: self.format_cpf(self.edCPF))
         self.edCPF_Cli.textChanged.connect(lambda: self.format_cpf(self.edCPF_Cli))
         self.edCPF_Func.textChanged.connect(lambda: self.format_cpf(self.edCPF_Func))
 
         self.edPlaca.textChanged.connect(lambda: self.format_plate(self.edPlaca))
 
+        self.edTel_Cliente.textChanged.connect(lambda: self.format_tel_num(self.edTel_Cliente))
+        
+        self.edTel_Func.textChanged.connect(lambda: self.format_tel_num(self.edTel_Func))
 
         current_dt = QDateTime.currentDateTime()
         self.dtEntrada.setMinimumDateTime(current_dt)
@@ -94,10 +97,10 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         text = editline.text()
         cursor_position = editline.cursorPosition()
 
-        # Remove caracteres não numéricos
+        # Remove caracteres não alfanuméricos
         cleaned_text = ''.join(filter(str.isalnum, text))
 
-        # Formata o CPF com pontos e hífen
+        # Formata a placa com hífen
         formatted_plate = ''
         for i, char in enumerate(cleaned_text):
             if i in (3, 7):
@@ -106,6 +109,26 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         formatted_plate = formatted_plate.upper()
         editline.setText(formatted_plate)
+    
+    def format_tel_num(self, editline):
+        text = editline.text()
+        cursor_position = editline.cursorPosition()
+
+        # Remove caracteres não numéricos
+        cleaned_text = ''.join(filter(str.isnumeric, text))
+
+        # Formata o número com parenteses e hífen
+        formatted_num = ''
+        for i, char in enumerate(cleaned_text):
+            if i == 0:
+                formatted_num += '('
+            if i == 2:
+                formatted_num += ') '
+            if i == 7:
+                formatted_num += '-'
+            formatted_num += char
+
+        editline.setText(formatted_num)
 
     def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
         msg = QMessageBox()

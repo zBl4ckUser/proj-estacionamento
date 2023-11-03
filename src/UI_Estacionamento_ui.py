@@ -193,6 +193,7 @@ class Ui_MainWindow(object):
         self.edTel_Cliente.setObjectName(u"edTel_Cliente")
         self.edTel_Cliente.setGeometry(QRect(200, 149, 171, 22))
         self.edTel_Cliente.setFont(font1)
+        self.edTel_Cliente.setMaxLength(15)
         self.btnCad_Cli = QPushButton(self.tabCad_Cliente)
         self.btnCad_Cli.setObjectName(u"btnCad_Cli")
         self.btnCad_Cli.setGeometry(QRect(299, 320, 75, 23))
@@ -329,7 +330,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -415,7 +416,8 @@ class Ui_MainWindow(object):
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"CPF", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"Telefone", None))
         self.edCPF_Cli.setPlaceholderText(QCoreApplication.translate("MainWindow", u"123.456.789-01", None))
-        self.edTel_Cliente.setInputMask(QCoreApplication.translate("MainWindow", u"(9D)9999-99999", None))
+        self.edTel_Cliente.setInputMask("")
+        self.edTel_Cliente.setPlaceholderText(QCoreApplication.translate("MainWindow", u"(99) 99999-9999", None))
         self.btnCad_Cli.setText(QCoreApplication.translate("MainWindow", u"Cadastrar", None))
         self.btnCancelar_Cli.setText(QCoreApplication.translate("MainWindow", u"Cancelar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabCad_Cliente), QCoreApplication.translate("MainWindow", u"Cadastrar cliente", None))
