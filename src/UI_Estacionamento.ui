@@ -625,6 +625,12 @@
       <property name="inputMask">
        <string/>
       </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>15</number>
+      </property>
      </widget>
      <widget class="QLabel" name="label_10">
       <property name="geometry">

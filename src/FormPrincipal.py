@@ -62,6 +62,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edTel_Func.textChanged.connect(lambda: self.format_tel_num(self.edTel_Func))
 
         self.edRG_Func.textChanged.connect(lambda: self.format_rg(self.edRG_Func))
+        self.edSalario.textChanged.connect(lambda: self.format_salary(self.edSalario))
 
         current_dt = QDateTime.currentDateTime()
         self.dtEntrada.setMinimumDateTime(current_dt)
@@ -148,6 +149,25 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 formatted_rg += '-'
             formatted_rg += char
         editline.setText(formatted_rg)
+    
+    def format_salary(self, editline):
+        text = editline.text()
+        cursor_position = editline.cursorPosition()
+
+        # Remove caracteres não numéricos e o símbolo do Real
+        cleaned_text = ''.join(filter(str.isdigit, text))
+
+        # Insere o símbolo do Real no início do campo
+        formatted_salary = 'R$ '
+
+        # Adiciona pontos de milhar
+        for i, char in enumerate(cleaned_text):
+            formatted_salary += char
+            if (len(cleaned_text) - i - 1) % 3 == 0 and i != len(cleaned_text) - 1:
+                formatted_salary += ','
+
+        editline.setText(formatted_salary)
+        editline.setCursorPosition(min(cursor_position + 3, len(formatted_salary)))
 
     def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
         msg = QMessageBox()
