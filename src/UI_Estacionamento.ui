@@ -37,7 +37,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -575,7 +575,13 @@
        </font>
       </property>
       <property name="inputMask">
-       <string>99.999.999-9</string>
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>12</number>
+      </property>
+      <property name="placeholderText">
+       <string>12.345.678-2</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="edTel_Func">
@@ -593,7 +599,13 @@
        </font>
       </property>
       <property name="inputMask">
-       <string>(9D)9999-99999</string>
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>15</number>
+      </property>
+      <property name="placeholderText">
+       <string>(99) 99999-9999</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="edSalario">

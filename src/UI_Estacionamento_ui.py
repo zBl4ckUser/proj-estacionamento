@@ -216,10 +216,12 @@ class Ui_MainWindow(object):
         self.edRG_Func.setObjectName(u"edRG_Func")
         self.edRG_Func.setGeometry(QRect(200, 150, 171, 22))
         self.edRG_Func.setFont(font1)
+        self.edRG_Func.setMaxLength(12)
         self.edTel_Func = QLineEdit(self.tabCad_Func)
         self.edTel_Func.setObjectName(u"edTel_Func")
         self.edTel_Func.setGeometry(QRect(200, 200, 171, 22))
         self.edTel_Func.setFont(font1)
+        self.edTel_Func.setMaxLength(15)
         self.edSalario = QLineEdit(self.tabCad_Func)
         self.edSalario.setObjectName(u"edSalario")
         self.edSalario.setGeometry(QRect(200, 340, 171, 22))
@@ -330,7 +332,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -423,8 +425,10 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tabCad_Cliente), QCoreApplication.translate("MainWindow", u"Cadastrar cliente", None))
         self.edCPF_Func.setText("")
         self.edCPF_Func.setPlaceholderText(QCoreApplication.translate("MainWindow", u"123.456.789-01", None))
-        self.edRG_Func.setInputMask(QCoreApplication.translate("MainWindow", u"99.999.999-9", None))
-        self.edTel_Func.setInputMask(QCoreApplication.translate("MainWindow", u"(9D)9999-99999", None))
+        self.edRG_Func.setInputMask("")
+        self.edRG_Func.setPlaceholderText(QCoreApplication.translate("MainWindow", u"12.345.678-2", None))
+        self.edTel_Func.setInputMask("")
+        self.edTel_Func.setPlaceholderText(QCoreApplication.translate("MainWindow", u"(99) 99999-9999", None))
         self.edSalario.setInputMask("")
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"CPF", None))

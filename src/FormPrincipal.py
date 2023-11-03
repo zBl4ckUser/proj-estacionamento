@@ -58,8 +58,9 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edPlaca.textChanged.connect(lambda: self.format_plate(self.edPlaca))
 
         self.edTel_Cliente.textChanged.connect(lambda: self.format_tel_num(self.edTel_Cliente))
-        
         self.edTel_Func.textChanged.connect(lambda: self.format_tel_num(self.edTel_Func))
+
+        self.edRG_Func.textChanged.connect(lambda: self.format_rg(self.edRG_Func))
 
         current_dt = QDateTime.currentDateTime()
         self.dtEntrada.setMinimumDateTime(current_dt)
@@ -129,6 +130,23 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             formatted_num += char
 
         editline.setText(formatted_num)
+
+    def format_rg(self, editline):
+        text = editline.text()
+        cursor_position = editline.cursorPosition()
+
+        # Remove caracteres não numéricos
+        cleaned_text = ''.join(filter(str.isnumeric, text))
+
+        # Formata o RG com ponto e hífen
+        formatted_rg = ''
+        for i, char in enumerate(cleaned_text):
+            if i in (2, 5):
+                formatted_rg += '.'
+            if i == 8:
+                formatted_rg += '-'
+            formatted_rg += char
+        editline.setText(formatted_rg)
 
     def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
         msg = QMessageBox()
