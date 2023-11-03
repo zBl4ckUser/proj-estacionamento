@@ -51,7 +51,9 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edFunc_ID.setValidator(int_validator)
 
         # formata o CPF     
-        self.edCPF.textChanged.connect(self.format_cpf)
+        self.edCPF.textChanged.connect(lambda: self.format_cpf(self.edCPF))
+        self.edCPF_Cli.textChanged.connect(lambda: self.format_cpf(self.edCPF_Cli))
+        self.edCPF_Func.textChanged.connect(lambda: self.format_cpf(self.edCPF_Func))
 
 
         current_dt = QDateTime.currentDateTime()
@@ -68,16 +70,12 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         self.tabWidget.currentChanged.connect(self.on_tab_change)
 
-    def format_cpf(self):
-        text = self.edCPF.text()
-        cursor_position = self.edCPF.cursorPosition()
+    def format_cpf(self, editline):
+        text = editline.text()
+        cursor_position = editline.cursorPosition()
 
         # Remove caracteres não numéricos
         cleaned_text = ''.join(filter(str.isdigit, text))
-
-        # Limita a entrada a 11 caracteres (9 dígitos + 2 caracteres de formatação)
-        if len(cleaned_text) > 11:
-            cleaned_text = cleaned_text[:11]
 
         # Formata o CPF com pontos e hífen
         formatted_cpf = ''
@@ -88,7 +86,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 formatted_cpf += '-'
             formatted_cpf += char
 
-        self.edCPF.setText(formatted_cpf)
+        editline.setText(formatted_cpf)
 
     def warning_msg(self, title = "Informações faltantes", message ="Insira todos os valores necessários!"):
         msg = QMessageBox()

@@ -84,6 +84,9 @@
       <property name="text">
        <string/>
       </property>
+      <property name="maxLength">
+       <number>14</number>
+      </property>
       <property name="placeholderText">
        <string>123.456.789-01</string>
       </property>
@@ -450,8 +453,11 @@
         <pointsize>10</pointsize>
        </font>
       </property>
-      <property name="inputMask">
-       <string>999.999.999-99</string>
+      <property name="maxLength">
+       <number>14</number>
+      </property>
+      <property name="placeholderText">
+       <string>123.456.789-01</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="edTel_Cliente">
@@ -532,11 +538,14 @@
         <pointsize>10</pointsize>
        </font>
       </property>
-      <property name="inputMask">
-       <string>999.999.999-99</string>
-      </property>
       <property name="text">
-       <string>..-</string>
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>14</number>
+      </property>
+      <property name="placeholderText">
+       <string>123.456.789-01</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="edRG_Func">
