@@ -40,6 +40,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.btnCriar_Reg.clicked.connect(self.new_reg)
         self.btnCad_Func.clicked.connect(self.new_func)
         self.btnCancelar.clicked.connect(self.cancel)
+        self.btnCancelar_Cli.clicked.connect(self.cancel)
         self.btnCan_Func.clicked.connect(self.cancel)
         self.btnCad_Cli.clicked.connect(self.new_cad_client)
         self.btnAlterar.clicked.connect(self.change_price)
