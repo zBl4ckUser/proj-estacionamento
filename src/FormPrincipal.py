@@ -270,7 +270,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 self.twReg.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         cursor.close()
 
-    def verify_if_cad_exist(self, cpf) -> bool : 
+    def verify_if_cad_exist(self, cpf: str) -> bool : 
         from db_operations import connection
         cursor = connection.cursor()
         sCommand = f"select * from Estacionamento.CadastroCliente where cpf = '{cpf}'"
@@ -300,7 +300,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         cursor.close()
 
-    def on_tab_change(self, index):
+    def on_tab_change(self, index: int):
         
         if index == 1:
             self.list_reg()
@@ -310,5 +310,5 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
     def cancel(self):
         self.clear_inputs()
 
-    def next_tab(self, index):
+    def next_tab(self, index: int):
         self.tabWidget.setCurrentIndex(index)

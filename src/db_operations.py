@@ -38,7 +38,7 @@ def check_os():
     elif platform.system() == "Windows":
         return find_drivers()
 
-def connect_to_db(pwd, user, server, database) -> bool:
+def connect_to_db(pwd: str, user: str, server: str, database: str) -> bool:
         try: 
             global connection
             connection = db.connect(
@@ -134,7 +134,7 @@ def verify_if_registry_exist(reg: int) -> bool:
         cursor.close()
         return True
 
-def verify_if_employee_exist(reg: any) -> bool:
+def verify_if_employee_exist(reg: int) -> bool:
     cursor = connection.cursor()
     sVerify = f"SELECT * FROM Estacionamento.Funcionario f WHERE f.idFuncionario = {reg}"
     result = cursor.execute(sVerify)

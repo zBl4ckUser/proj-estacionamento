@@ -18,7 +18,7 @@ def get_key():
     file.close()
     return key
 
-def crypt_password(password):
+def crypt_password(password: str):
     password = password.encode()
     check_if_key_exist()
     key = bytes(get_key().encode("utf-8"))
@@ -26,7 +26,7 @@ def crypt_password(password):
     ciphered_text = cipher_suite.encrypt(password)
     return ciphered_text
     
-def decrypt_password(encrypted_pwd):
+def decrypt_password(encrypted_pwd: bytes):
     check_if_key_exist()
     key = bytes(get_key().encode("utf-8"))
     cipher_suite = Fernet(key)
