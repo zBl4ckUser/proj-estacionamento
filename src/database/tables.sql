@@ -13,6 +13,7 @@ create table Estacionamento.Registro(
 	idCliente int not null,
 	entrada datetime not null,
 	saida datetime null,
+	preco money null default 0,
 	constraint fk_idCliente foreign key(idCliente)
 	references Estacionamento.Cliente(idCliente)
 )
@@ -27,41 +28,9 @@ create table Estacionamento.Funcionario(
 	salario money not null
 )
 
-
-/*
- * Verifica se o cpf do cliente já está cadastrado;
- * Se estiver, muda a situação de cadastro (que é o 'premium')
- * para verdadeiro
-*/
-UPDATE Estacionamento.Cliente
-SET premium = CASE
-    WHEN Estacionamento.Cliente.cpf = Estacionamento.CadastroCliente.cpf THEN 1
-    ELSE 0
-    END
-FROM Estacionamento.Cliente
-INNER JOIN Estacionamento.CadastroCliente ON Estacionamento.Cliente.cpf = Estacionamento.CadastroCliente.cpf	
-
-
-
-select * from Estacionamento.Cliente
-select * from Estacionamento.Registro
-select * from Estacionamento.Funcionario
-select * from Estacionamento.CadastroCliente 
-
-delete from Estacionamento.Registro 
-delete from Estacionamento.CadastroCliente 
-delete from Estacionamento.Cliente 
-delete from Estacionamento.Funcionario 
-
-DBCC CHECKIDENT ('Estacionamento.Cliente', RESEED, 0)
-DBCC CHECKIDENT ('Estacionamento.Registro', RESEED, 0)
-DBCC CHECKIDENT ('Estacionamento.Funcionario', RESEED, 0)
-DBCC CHECKIDENT ('Estacionamento.CadastroCliente', RESEED, 0)
-
 create table Estacionamento.CadastroCliente(
 	idCadastroCliente int identity primary key,
 	nome varchar(40) not null,
 	cpf varchar(14) not null,
 	telefone varchar(14) not null
 )
-
