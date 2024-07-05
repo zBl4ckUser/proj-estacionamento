@@ -1,6 +1,6 @@
 from DBDialog import FormDB
 from pwd_treat import decrypt_password, crypt_password
-import pyodbc as db
+import sqlite3 as db
 import os
 from PySide6 import QtWidgets
 
@@ -41,14 +41,15 @@ def check_os():
 def connect_to_db(pwd: str, user: str, server: str, database: str) -> bool:
         try: 
             global connection
-            connection = db.connect(
-                                driver=check_os(),
-                                server=f"{server}",
-                                database=f"{database}",
-                                uid=f"{user}",
-                                pwd=f"{pwd}",
-                                TrustServerCertificate='yes'
-                                )
+            # connection = db.connect(
+            #                     driver=check_os(),
+            #                     server=f"{server}",
+            #                     database=f"{database}",
+            #                     uid=f"{user}",
+            #                     pwd=f"{pwd}",
+            #                     TrustServerCertificate='yes'
+            #                     )
+            connection = db.connect("/home/zbl4ck/proj-estacionamento/src/estacionamento")
             print(f"{Colors.OKGREEN}[DB]: Conexão com banco de dados realizada com sucesso{Colors.ENDC}")
             return True
         except Exception as err:
@@ -60,20 +61,22 @@ def connect_to_db(pwd: str, user: str, server: str, database: str) -> bool:
 
 def insert_into_db(table, columns, values):
         cursor = connection.cursor()
-        sComando = f"Insert into Estacionamento.{table}" +\
+        sComando = f"Insert into {table}" +\
                     f"({columns})" +\
                     f" values ({values})"
         try:
             cursor.execute(sComando)
+            connection.commit()
+            return True
         except db.Error as err:
             print(f"{Colors.FAIL}[BD] Inserção no banco de dados falhou!{Colors.ENDC}")
-            print(f"Error is: {err.args[1]}")
-        cursor.commit()
-        cursor.close()
+            print(f"{Colors.WARNING}Error is: {err.args[0]}{Colors.ENDC}")
+            cursor.close()
+            return False
 
 def get_client_id():
         cursor = connection.cursor()
-        sSelect = f"select max(idCliente) from Estacionamento.Cliente"
+        sSelect = f"select max(idCliente) from Cliente"
         result = cursor.execute(sSelect)
         id = result.fetchone()
         cursor.close()
@@ -113,19 +116,24 @@ def db_form():
 
 def verify_premium():
     cursor = connection.cursor()
-    sVerify = "UPDATE Estacionamento.Cliente\
-        SET premium = CASE\
-            WHEN Estacionamento.Cliente.cpf = Estacionamento.CadastroCliente.cpf THEN 1\
+    sVerify = "UPDATE Cliente\
+    SET premium = (\
+        SELECT CASE\
+            WHEN EXISTS (\
+                SELECT 1\
+                FROM CadastroCliente\
+                WHERE CadastroCliente.cpf = Cliente.cpf\
+            ) THEN 1\
             ELSE 0\
-            END\
-        FROM Estacionamento.Cliente\
-        INNER JOIN Estacionamento.CadastroCliente ON Estacionamento.Cliente.cpf = Estacionamento.CadastroCliente.cpf"
+        END\
+    )\
+    "
     cursor.execute(sVerify)
     cursor.close()
 
 def verify_if_registry_exist(reg: int) -> bool:
     cursor = connection.cursor()
-    sVerify = f"SELECT * FROM Estacionamento.Registro r where r.idRegistro = {reg}"
+    sVerify = f"SELECT * FROM Registro r where r.idRegistro = {reg}"
     result = cursor.execute(sVerify)
     if result.fetchone() is None:
         cursor.close()
@@ -136,7 +144,7 @@ def verify_if_registry_exist(reg: int) -> bool:
 
 def verify_if_employee_exist(reg: int) -> bool:
     cursor = connection.cursor()
-    sVerify = f"SELECT * FROM Estacionamento.Funcionario f WHERE f.idFuncionario = {reg}"
+    sVerify = f"SELECT * FROM Funcionario f WHERE f.idFuncionario = {reg}"
     result = cursor.execute(sVerify)
     if result.fetchone() is None:
         cursor.close()
