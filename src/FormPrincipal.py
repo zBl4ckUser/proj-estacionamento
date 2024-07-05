@@ -7,7 +7,7 @@ from PySide6.QtCore import QDateTime, QRegularExpression
 #UTILS
 import datetime
 import re
-from db_operations import insert_into_db, get_client_id, db_form, verify_premium, \
+from db_operations import insert_into_db, get_client_id, db_form, verify_premium,\
     table, columns, verify_if_registry_exist, verify_if_employee_exist
 
 class Colors:
@@ -27,7 +27,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.show()
-        db_form() 
+        db_form()
 
         self.dtEntrada.setDateTime(datetime.datetime.now())
         self.dtSaida.setDateTime(datetime.datetime.now())
@@ -55,7 +55,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edNome_Cliente.setValidator(validator)
         self.edNome_Func.setValidator(validator)
 
-        # formatando os editlines     
+        # formatando os editlines
         self.edCPF.textChanged.connect(lambda: self.format_cpf(self.edCPF))
         self.edCPF_Cli.textChanged.connect(lambda: self.format_cpf(self.edCPF_Cli))
         self.edCPF_Func.textChanged.connect(lambda: self.format_cpf(self.edCPF_Func))
@@ -116,7 +116,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         formatted_plate = formatted_plate.upper()
         editline.setText(formatted_plate)
-    
+
     def format_tel_num(self, editline):
         text = editline.text()
         cursor_position = editline.cursorPosition()
@@ -153,7 +153,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 formatted_rg += '-'
             formatted_rg += char
         editline.setText(formatted_rg)
-    
+
     def format_salary(self, editline):
         text = editline.text()
         cursor_position = editline.cursorPosition()
@@ -188,7 +188,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
     def t_cadastrar_func(self):
         self.tabWidget.show()
         self.next_tab(4)
-    
+
     def t_listar(self):
         self.tabWidget.show()
         if self.tabWidget.currentIndex() == 1:
@@ -205,7 +205,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
     def t_admin(self):
         self.next_tab(5)
-        
+
     def change_price(self):
         self.preco_carro = self.spbCarro.value()
         self.preco_moto = self.spbMoto.value()
@@ -214,18 +214,20 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
     def delete_reg(self):
         from db_operations import connection
         cursor = connection.cursor()
-        
+
         if self.edReg_ID.text() == '':
             print(f"{Colors.FAIL}Nenhum registro foi informado{Colors.ENDC}")
             self.warning_msg("Informação faltante","Nenhum registro foi informado")
         else:
             reg_id = int(self.edReg_ID.text())
-            sDel = f"DELETE FROM Estacionamento.Registro WHERE idRegistro = {reg_id}"
+            sDel = f"DELETE FROM Registro WHERE idRegistro = {reg_id}"
             if verify_if_registry_exist(reg_id):
                 try:
                     cursor.execute(sDel)
                     print(f"{Colors.OKGREEN} Registro {reg_id} deletado")
-                    cursor.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
+                    cursor.close()
+                    connection.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
+                    return
                 except Exception as err:
                     print(f"{Colors.FAIL}Erro ao deletar registro!{Colors.ENDC}")
                     print(f"Erro: {err}")
@@ -243,16 +245,16 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         else:
             try:
                 func_id = int(self.edFunc_ID.text())
-                sDel = f"DELETE FROM Estacionamento.Funcionario WHERE idFuncionario = {func_id}"
+                sDel = f"DELETE FROM Funcionario WHERE idFuncionario = {func_id}"
             except:
                 func_id = self.edFunc_ID.text()
-                sDel = f"DELETE FROM Estacionamento.Funcionario WHERE nome = '{func_id}'"
+                sDel = f"DELETE FROM Funcionario WHERE nome = '{func_id}'"
             cursor = connection.cursor()
 
             if verify_if_employee_exist(func_id):
                 try:
                     cursor.execute(sDel)
-                    print(f"{Colors.OKGREEN}Registro {func_id} deletado")
+                    print(f"{Colors.OKGREEN}Registro {func_id} deletado{Colors.ENDC}")
                 except Exception as err:
                     print(f"{Colors.FAIL}Erro ao deletar registro!{Colors.ENDC}")
                     print(f"Erro: {err}")
@@ -260,8 +262,8 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 print(f"{Colors.FAIL}O Registro não existe{Colors.ENDC}")
                 self.warning_msg("Erro!", "O Registro não existe")
 
-            cursor.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
             cursor.close()
+            connection.commit() # SALVA AS MUDANÇAS FEITAS NO BANCO DE DADOS
 
     def clear_inputs(self):
         self.edReg_ID.clear()
@@ -270,18 +272,18 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         self.edPlaca.clear()
         self.dtEntrada.setDateTime(datetime.datetime.now())
         self.dtSaida.setDateTime(datetime.datetime.now())
-    
+
         self.edNome_Func.clear()
         self.edCPF_Func.clear()
         self.edRG_Func.clear()
         self.etEndereco.clear()
         self.edTel_Func.clear()
         self.edSalario.clear()
-    
+
         self.edNome_Cliente.clear()
         self.edCPF_Cli.clear()
         self.edTel_Cliente.clear()
-        
+
     def new_reg(self):
         regex_placa = r'^[A-Z]{3}[0-9][0-9A-Z][0-9]{2}$' # regex de validação para placa
 
@@ -292,20 +294,22 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             print(f"{Colors.FAIL}A Placa inserida é inválida{Colors.ENDC}")
         else:
             placa = self.edPlaca.text()
-            print(f"{Colors.OKGREEN} A Placa inserida é válida{Colors.ENDC}")
-            client_cpf = self.edCPF.text() 
-            entry_date = self.dtEntrada.text()
-            departure_time = self.dtSaida.text()
+            print(f"{Colors.OKBLUE} A Placa inserida é válida{Colors.ENDC}")
+            client_cpf = self.edCPF.text()
+            entry_date = datetime.datetime.strptime(self.dtEntrada.text()[:-1], "%H:%M %d/%m/%Y")
+            departure_time = datetime.datetime.strptime(self.dtSaida.text()[:-1], "%H:%M %d/%m/%Y")
             type_auto = self.cbxTipo.currentText()
             client_insert = f"'{client_cpf}', '{placa}', '{type_auto}'"
-            
-            insert_into_db(table[0], columns[0], client_insert) # Novo Cliente
-            print(f"{Colors.OKCYAN}Cliente cadastrado com sucesso{Colors.ENDC}")
-            verify_premium() # verifica se o cliente já é cadastrado 
 
-            client_id = get_client_id()  
-            registry_insert = f"{client_id}, CONVERT(DATETIME, '{entry_date}'), CONVERT(DATETIME, '{departure_time}')"
-            
+            if not insert_into_db(table[0], columns[0], client_insert):
+                return
+            print(f"{Colors.OKCYAN}Cliente cadastrado com sucesso{Colors.ENDC}")
+            verify_premium() # verifica se o cliente já é cadastrado
+
+            client_id = get_client_id()
+
+            registry_insert = f"{client_id}, '{entry_date}', '{departure_time}', 0"
+
             insert_into_db(table[1], columns[1], registry_insert) # Novo registro
             print(f"{Colors.OKCYAN}Registro inserido com sucesso{Colors.ENDC}")
 
@@ -323,9 +327,9 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             rg_func   = self.edRG_Func.text()
             endereco  = self.etEndereco.toPlainText()
             tel_func  = self.edTel_Func.text()
-            salario   = self.edSalario.text()
-        
-            values = f"'{nome_func}', '{cpf_func}', '{rg_func}', '{tel_func}', '{endereco}', CONVERT(MONEY, '{salario}')"
+            salario   = self.edSalario.text().lstrip("R$ ")
+
+            values = f"'{nome_func}', '{cpf_func}', '{rg_func}', '{tel_func}', '{endereco}', '{salario}'"
 
             insert_into_db(table[2], columns[2], values)
 
@@ -343,8 +347,37 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 cli_tel = self.edTel_Cliente.text()
                 values = f"'{cli_name}', '{cli_cpf}', '{cli_tel}'"
                 insert_into_db(table[3], columns[3], values)
-
+                print(f"{Colors.OKCYAN}Cliente Premium cadastrado com sucesso")
             self.clear_inputs()
+
+    def update_parking_cost(self):
+        from db_operations import connection
+
+        cursor = connection.cursor()
+
+        sFunc = f"""
+        UPDATE Registro
+        SET preco = (
+            CASE
+                WHEN Cliente.tipo_auto = 'Carro' THEN 
+                    CAST(round((julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_carro}, 2) AS REAL)
+                WHEN Cliente.tipo_auto = 'Moto' THEN 
+                    CAST(round((julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_moto}, 2) AS REAL)
+            END * CASE WHEN Cliente.premium = 1 THEN {self.desconto} ELSE 1 END
+        )
+        FROM Cliente
+        WHERE Cliente.idCliente = Registro.idCliente;
+        """
+        
+        try:
+            cursor.execute(sFunc)
+            connection.commit()
+            print(f"{Colors.OKGREEN}[DB]: Update realizado com sucesso{Colors.ENDC}")
+        except db.Error as err:
+            print(f"{Colors.FAIL}[BD] Operação de atualização falhou!{Colors.ENDC}")
+            print(f"{Colors.WARNING}Erro: {err}{Colors.ENDC}")
+        finally:
+            cursor.close()
 
     def list_reg(self):
         from db_operations import connection
@@ -353,24 +386,24 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         cursor = connection.cursor()
 
-        sFunc = f"SELECT\
-            Estacionamento.Cliente.idCliente,\
-            CASE\
-                WHEN Estacionamento.Cliente.premium = 1 THEN Estacionamento.CadastroCliente.nome\
-                ELSE ''\
-            END AS nome,\
-            Estacionamento.Cliente.placa,\
-            Estacionamento.Registro.entrada,\
-            Estacionamento.Registro.saida,\
-            CASE\
-                WHEN Estacionamento.Cliente.tipo_auto = 'carro' THEN DATEDIFF(hour, Estacionamento.Registro.entrada, Estacionamento.Registro.saida) * {self.preco_carro}\
-                WHEN Estacionamento.Cliente.tipo_auto = 'moto' THEN DATEDIFF(hour, Estacionamento.Registro.entrada, Estacionamento.Registro.saida) * {self.preco_moto}\
-            END * CASE WHEN Estacionamento.Cliente.premium = 1 THEN {self.desconto} ELSE 1 END AS valor\
-            FROM\
-            Estacionamento.Cliente\
-            LEFT JOIN Estacionamento.CadastroCliente ON Estacionamento.Cliente.cpf = Estacionamento.CadastroCliente.cpf\
-            INNER JOIN Estacionamento.Registro ON Estacionamento.Cliente.idCliente = Estacionamento.Registro.idCliente\
-            "
+        self.update_parking_cost()  
+
+        sFunc = f"""
+        SELECT
+            Cliente.idCliente,
+            CASE
+                WHEN Cliente.premium = 1 THEN CadastroCliente.nome
+                ELSE 'Não tem cadastro'
+            END AS nome,
+            Cliente.placa,
+            Registro.entrada,
+            Registro.saida,
+            Registro.preco AS valor
+        FROM
+            Cliente
+        LEFT JOIN CadastroCliente ON Cliente.cpf = CadastroCliente.cpf
+        INNER JOIN Registro ON Cliente.idCliente = Registro.idCliente;
+        """
         cursor.execute(sFunc)
         result = cursor.fetchall()
 
@@ -380,10 +413,10 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 self.twReg.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         cursor.close()
 
-    def verify_if_cad_exist(self, cpf: str) -> bool : 
+    def verify_if_cad_exist(self, cpf: str) -> bool :
         from db_operations import connection
         cursor = connection.cursor()
-        sCommand = f"select * from Estacionamento.CadastroCliente where cpf = '{cpf}'"
+        sCommand = f"select * from CadastroCliente where cpf = '{cpf}'"
         result = cursor.execute(sCommand)
         if result.fetchone() is None:
             cursor.close()
@@ -391,16 +424,15 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         else:
             cursor.close()
             return True
-        
 
     def list_func(self):
         self.twFunc.clearContents()  # Limpa os conteúdos das células
         self.twFunc.setRowCount(0)  # Define o número de linhas como zero
-        
+
         from db_operations import connection
 
         cursor = connection.cursor()
-        sFunc = "SELECT * FROM Estacionamento.Funcionario"
+        sFunc = "SELECT * FROM Funcionario"
         result = cursor.execute(sFunc)
 
         for row_number, row_data in enumerate(result):
@@ -411,7 +443,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         cursor.close()
 
     def on_tab_change(self, index: int):
-        
+
         if index == 1:
             self.list_reg()
         if index == 2:

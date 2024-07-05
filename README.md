@@ -12,20 +12,25 @@ $ python src/main.py
 No Windows, clique duas vezes no arquivo main.py localizado na pasta `src`
 
 ------------
-Caso queira, vocẽ pode gerar uma nova chave para criptografia ao executar o arquivo `generate_key.py`
-
-
 
 ### Dependências
 
 Este projeto tem como dependências os seguintes pacotes
-> * pyodbc
 > * PySide6
-> * cryptography
+> * pyinstaller
 
 Tais dependências podem ser instaladas com o seguinte comando:
 ```bash
+$ python -m venv .venv/
+$ source .venv/bin/activate 
 $ pip install -r requirements.txt
 ```
+### Versão de produção
+
+Execute esse comando na raiz do projeto para criar o executável do programa
+```bash
+$ pyinstaller --name="Estaciona+" -w --icon=images/Icon_Carro.ico  --onefile src/main.py
+```
+O arquivo executável estará no diretório `dist`
 
 Para o desenvolvimento desse software foi utilizado a linguagem Python na versão 3.10.12
