@@ -27,9 +27,9 @@ $ pip install -r requirements.txt
 ```
 ### Versão de produção
 
-Execute esse comando para criar o executável do projeto
+Execute esse comando na raiz do projeto para criar o executável do programa
 ```bash
-$ pyinstaller --name="Estaciona+" -w src/main.py
+$ pyinstaller --name="Estaciona+" -w --icon=images/Icon_Carro.ico  --onefile src/main.py
 ```
 O arquivo executável estará no diretório `dist`
 
