@@ -12,16 +12,11 @@ $ python src/main.py
 No Windows, clique duas vezes no arquivo main.py localizado na pasta `src`
 
 ------------
-Caso queira, vocẽ pode gerar uma nova chave para criptografia ao executar o arquivo `generate_key.py`
-
-
 
 ### Dependências
 
 Este projeto tem como dependências os seguintes pacotes
-> * pyodbc
 > * PySide6
-> * cryptography
 
 Tais dependências podem ser instaladas com o seguinte comando:
 ```bash
