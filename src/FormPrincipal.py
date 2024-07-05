@@ -308,7 +308,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
             client_id = get_client_id()
 
-            registry_insert = f"{client_id}, '{entry_date}', '{departure_time}'"
+            registry_insert = f"{client_id}, '{entry_date}', '{departure_time}', 0"
 
             insert_into_db(table[1], columns[1], registry_insert) # Novo registro
             print(f"{Colors.OKCYAN}Registro inserido com sucesso{Colors.ENDC}")
@@ -350,6 +350,26 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 print(f"{Colors.OKCYAN}Cliente Premium cadastrado com sucesso")
             self.clear_inputs()
 
+    def update_parking_cost(self):
+        from db_operations import connection
+
+        cursor = connection.cursor()
+
+        sFunc = f"""UPDATE Registro
+        SET preco = (
+            CASE
+                WHEN Cliente.tipo_auto = 'carro' THEN 
+                    (julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_carro}
+                WHEN Cliente.tipo_auto = 'moto' THEN 
+                    (julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_moto}
+            END * CASE WHEN Cliente.premium = 1 THEN {self.desconto} ELSE 1 END
+        )
+        FROM Cliente
+        WHERE Cliente.idCliente = Registro.idCliente;"""
+        cursor.execute(sFunc)
+        connection.commit()
+        cursor.close
+
     def list_reg(self):
         from db_operations import connection
         self.twReg.clearContents()  # Limpa os conteúdos das células
@@ -357,26 +377,24 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         cursor = connection.cursor()
 
-        sFunc = f"SELECT\
-                    Cliente.idCliente,\
-                    CASE\
-                        WHEN Cliente.premium = 1 THEN CadastroCliente.nome\
-                        ELSE ''\
-                    END AS nome,\
-                    Cliente.placa,\
-                    Registro.entrada,\
-                    Registro.saida,\
-                    CASE\
-                        WHEN Cliente.tipo_auto = 'carro' THEN \
-                            (julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_carro}\
-                        WHEN Cliente.tipo_auto = 'moto' THEN \
-                            (julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_moto}\
-                    END * CASE WHEN Cliente.premium = 1 THEN {self.desconto} ELSE 1 END AS valor\
-                FROM\
-                    Cliente\
-                LEFT JOIN CadastroCliente ON Cliente.cpf = CadastroCliente.cpf\
-                INNER JOIN Registro ON Cliente.idCliente = Registro.idCliente\
-                "
+        self.update_parking_cost()  
+
+        sFunc = f"""
+        SELECT
+            Cliente.idCliente,
+            CASE
+                WHEN Cliente.premium = 1 THEN CadastroCliente.nome
+                ELSE 'Não tem cadastro'
+            END AS nome,
+            Cliente.placa,
+            Registro.entrada,
+            Registro.saida,
+            Registro.preco AS valor
+        FROM
+            Cliente
+        LEFT JOIN CadastroCliente ON Cliente.cpf = CadastroCliente.cpf
+        INNER JOIN Registro ON Cliente.idCliente = Registro.idCliente;
+        """
         cursor.execute(sFunc)
         result = cursor.fetchall()
 

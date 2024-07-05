@@ -13,7 +13,7 @@ class Colors :
     UNDERLINE = '\033[4m'
 
 table = ["Cliente","Registro","Funcionario", "CadastroCliente"]
-columns = ["cpf, placa, tipo_auto", "idCliente, entrada, saida", "nome, cpf, rg, telefone, endereco, salario"\
+columns = ["cpf, placa, tipo_auto", "idCliente, entrada, saida, preco", "nome, cpf, rg, telefone, endereco, salario"\
            ,"nome, cpf, telefone"
            ]
 
@@ -99,6 +99,7 @@ def verify_premium():
     )\
     "
     cursor.execute(sVerify)
+    connection.commit()
     cursor.close()
 
 def verify_if_registry_exist(reg: int) -> bool:
