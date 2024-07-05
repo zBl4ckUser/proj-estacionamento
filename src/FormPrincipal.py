@@ -296,8 +296,8 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             placa = self.edPlaca.text()
             print(f"{Colors.OKBLUE} A Placa inserida é válida{Colors.ENDC}")
             client_cpf = self.edCPF.text()
-            entry_date = self.dtEntrada.text()
-            departure_time = self.dtSaida.text()
+            entry_date = datetime.datetime.strptime(self.dtEntrada.text()[:-1], "%H:%M %d/%m/%Y")
+            departure_time = datetime.datetime.strptime(self.dtSaida.text()[:-1], "%H:%M %d/%m/%Y")
             type_auto = self.cbxTipo.currentText()
             client_insert = f"'{client_cpf}', '{placa}', '{type_auto}'"
 
@@ -355,20 +355,29 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
 
         cursor = connection.cursor()
 
-        sFunc = f"""UPDATE Registro
+        sFunc = f"""
+        UPDATE Registro
         SET preco = (
             CASE
-                WHEN Cliente.tipo_auto = 'carro' THEN 
-                    (julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_carro}
-                WHEN Cliente.tipo_auto = 'moto' THEN 
-                    (julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_moto}
+                WHEN Cliente.tipo_auto = 'Carro' THEN 
+                    CAST(round((julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_carro}, 2) AS REAL)
+                WHEN Cliente.tipo_auto = 'Moto' THEN 
+                    CAST(round((julianday(Registro.saida) - julianday(Registro.entrada)) * 24 * {self.preco_moto}, 2) AS REAL)
             END * CASE WHEN Cliente.premium = 1 THEN {self.desconto} ELSE 1 END
         )
         FROM Cliente
-        WHERE Cliente.idCliente = Registro.idCliente;"""
-        cursor.execute(sFunc)
-        connection.commit()
-        cursor.close
+        WHERE Cliente.idCliente = Registro.idCliente;
+        """
+        
+        try:
+            cursor.execute(sFunc)
+            connection.commit()
+            print(f"{Colors.OKGREEN}[DB]: Update realizado com sucesso{Colors.ENDC}")
+        except db.Error as err:
+            print(f"{Colors.FAIL}[BD] Operação de atualização falhou!{Colors.ENDC}")
+            print(f"{Colors.WARNING}Erro: {err}{Colors.ENDC}")
+        finally:
+            cursor.close()
 
     def list_reg(self):
         from db_operations import connection
