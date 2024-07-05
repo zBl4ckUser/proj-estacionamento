@@ -1,5 +1,5 @@
 __pycache__/
-db.txt
-key.txt
-estacionamento
-estacionamento.db
+.venv/
+build/
+dist/
+Estaciona+.spec
