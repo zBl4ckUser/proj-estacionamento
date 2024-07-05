@@ -7,7 +7,7 @@ from PySide6.QtCore import QDateTime, QRegularExpression
 #UTILS
 import datetime
 import re
-from db_operations import insert_into_db, get_client_id, db_form, verify_premium, \
+from db_operations import insert_into_db, get_client_id, db_form, verify_premium,\
     table, columns, verify_if_registry_exist, verify_if_employee_exist
 
 class Colors:
@@ -294,7 +294,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
             print(f"{Colors.FAIL}A Placa inserida é inválida{Colors.ENDC}")
         else:
             placa = self.edPlaca.text()
-            print(f"{Colors.OKGREEN} A Placa inserida é válida{Colors.ENDC}")
+            print(f"{Colors.OKBLUE} A Placa inserida é válida{Colors.ENDC}")
             client_cpf = self.edCPF.text()
             entry_date = self.dtEntrada.text()
             departure_time = self.dtSaida.text()
@@ -347,7 +347,7 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
                 cli_tel = self.edTel_Cliente.text()
                 values = f"'{cli_name}', '{cli_cpf}', '{cli_tel}'"
                 insert_into_db(table[3], columns[3], values)
-
+                print(f"{Colors.OKCYAN}Cliente Premium cadastrado com sucesso")
             self.clear_inputs()
 
     def list_reg(self):
@@ -397,7 +397,6 @@ class FormPrincipal(QMainWindow, Ui_MainWindow):
         else:
             cursor.close()
             return True
-
 
     def list_func(self):
         self.twFunc.clearContents()  # Limpa os conteúdos das células
