@@ -1,5 +1,6 @@
 import sqlite3 as db
 import os
+import sys
 
 class Colors :
     HEADER = '\033[95m'
@@ -16,6 +17,13 @@ table = ["Cliente","Registro","Funcionario", "CadastroCliente"]
 columns = ["cpf, placa, tipo_auto", "idCliente, entrada, saida, preco", "nome, cpf, rg, telefone, endereco, salario"\
            ,"nome, cpf, telefone"
            ]
+
+def get_resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS  # Pasta temporária usada pelo PyInstaller
+    except AttributeError:
+        base_path = os.path.abspath(".")  # Ambiente de desenvolvimento
+    return os.path.join(base_path, relative_path)
 
 def get_documents_folder():
     if os.name == 'nt':  # Windows / Não foi testado
@@ -45,8 +53,8 @@ def create_database_if_not_exists(db_path, sql_script_path):
 def connect_to_db() -> bool:
     documents_folder = get_documents_folder()
     db_path = os.path.join(documents_folder, 'estacionamento.db')
-    sql_script_path = 'database/tables.sql'
-    create_database_if_not_exists(db_path, sql_script_path)
+    sql_path = get_resource_path(os.path.join("database", "tables.sql"))
+    create_database_if_not_exists(db_path, sql_path)
 
     try:
         global connection

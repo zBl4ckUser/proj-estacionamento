@@ -21,15 +21,15 @@ Este projeto tem como dependências os seguintes pacotes
 
 Tais dependências podem ser instaladas com o seguinte comando:
 ```bash
-$ python -m venv .venv/
-$ source .venv/bin/activate 
-$ pip install -r requirements.txt
+ python -m venv .venv/
+ source .venv/bin/activate 
+ pip install -r requirements.txt
 ```
 ### Versão de produção
 
 Execute esse comando na raiz do projeto para criar o executável do programa
 ```bash
-$ pyinstaller --name="Estaciona+" -w --icon=images/Icon_Carro.ico  --onefile src/main.py
+pyinstaller --name="Estaciona+" -w --icon=images/Icon_Carro.ico --add-data "src/database/tables.sql:database" --onefile src/main.py
 ```
 O arquivo executável estará no diretório `dist`
 
